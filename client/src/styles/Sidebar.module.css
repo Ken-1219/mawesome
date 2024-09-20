@@ -1,0 +1,166 @@
+.sidebarr {
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    -webkit-transform: translate3d(0, 0, 0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000;
+    transform: translate3d(0, 0, 0);
+    transform: translateZ(0);
+    background-color: var(--bg-glass-dark);
+    backdrop-filter: blur(20px);
+    /* flex: 3; */
+    height: 100%;
+    width: min(100%, 420px);
+    position: fixed;
+    top: 0;
+    right: 0;
+    overflow-x: visible;
+    overflow-y: scroll;
+    gap: 10px;
+}
+
+/* Search box */
+
+.sidebarSearchContainer {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebarSearchForm {
+    display: flex;
+    gap: 5px;
+    justify-content: space-between;
+    padding: 10px 5px;
+    margin: 20px 10px;
+    margin-bottom: 0;
+}
+
+.sidebarSearchForm input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--bg-glass-lighter) !important;
+    color: var(--color-primary);
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+.sidebarSearchForm input::placeholder {
+    color: var(--color-secondary);
+}
+
+.sidebarSearchForm input:active,
+.sidebarSearchForm input:focus {
+    outline: none;
+}
+
+.closeIcon {
+    display: none !important;
+}
+
+.sidebarSearchForm button,
+.closeIcon {
+    padding: 5px 15px;
+    border: none;
+    border-radius: 10px;
+    background-color: transparent;
+    color: var(--color-primary);
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.sidebarSearchForm button:hover,
+.closeIcon:hover {
+    background-color: var(--bg-glass-lighter);
+    cursor: pointer;
+}
+
+.notFound {
+    margin: 0 20px;
+    padding: 5px 10px;
+    font-family: var(--font-primary);
+    background-color: rgba(250, 235, 204, 0.01);
+    border: 1px solid;
+    border-color: rgb(250, 235, 204);
+    border-radius: 10px;
+    text-align: center;
+    color: #faebcc;
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+/* Pin Container */
+
+.pinContainer {
+    margin: 0 20px;
+    margin-bottom: 10px;
+    padding: 0 5px;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid var(--color-secondary);
+}
+
+.pinRibbon {
+    display: flex;
+}
+
+.pinRibbonText {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    margin: 10px 5px;
+    border: none;
+    border-radius: 10px;
+    color: var(--color-primary);
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+.pinRibbon button {
+    padding: 5px 10px;
+    margin: 10px 5px;
+    width: auto;
+    margin-left: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: transparent;
+    color: var(--color-secondary);
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+.pinRibbon button:hover {
+    background-color: var(--bg-glass-lighter);
+    cursor: pointer;
+}
+
+/* Mobile styles */
+@media screen and (max-width: 768px) {
+
+    .active {
+        transform: translate(0);
+    }
+
+    .sidebarSearchForm {
+        margin-inline: 0;
+    }
+
+    .sidebarSearchForm input {
+        width: 75%;
+    }
+
+    .closeIcon {
+        display: flex !important;
+        align-items: center;
+    }
+}

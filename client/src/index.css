@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Freehand&family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
+
+:root {
+  /* font stuff */
+  --font-primary: 'Poppins', sans-serif;
+  --font-styled: 'Freehand', cursive;
+
+  /* color stuff */
+  --color-primary: rgba(255, 255, 255, 0.95);
+  --color-secondary: rgba(255, 255, 255, 0.6);
+
+
+  /* background stuff */
+  --bg-glass-widget: rgba(255, 240, 228, 0.677);
+  --bg-glass-lightest: rgba(255, 255, 255, 0.3);
+  --bg-glass-lighter: rgba(255, 255, 255, 0.1);
+  --bg-glass-light: rgba(0, 0, 0, 0.2);
+  --bg-glass-dark: rgba(0, 0, 0, 0.3);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  transition: 100ms ease-in-out;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+html,
+body {
+  height: 1200px;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  position: fixed;
+  background-color: #1f1f1f;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}

@@ -1,5 +1,5 @@
 # mawesome
-Next.js and Express.js weather app. Check out on https://mawesome.vercel.app/
+Next.js and Express.js weather app.
 
 ## Key Features
 1. Get weather data for any city.
