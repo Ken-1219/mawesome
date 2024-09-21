@@ -2,7 +2,7 @@ import React from "react";
 import styles from "../styles/Dashboard.module.css";
 
 const Forecast = ({ weatherData, unit }) => {
-  console.log(weatherData);
+
   const getForecastWidgets = () => {
     const dailyForecastIndices = [0, 8, 16, 24, 32];
 

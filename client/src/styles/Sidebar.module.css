@@ -1,4 +1,4 @@
-.sidebarr {
+.sidebar {
     -webkit-backface-visibility: hidden;
     -webkit-perspective: 1000;
     -webkit-transform: translate3d(0, 0, 0);
@@ -7,9 +7,6 @@
     perspective: 1000;
     transform: translate3d(0, 0, 0);
     transform: translateZ(0);
-    background-color: var(--bg-glass-dark);
-    backdrop-filter: blur(20px);
-    /* flex: 3; */
     height: 100%;
     width: min(100%, 420px);
     position: fixed;
@@ -18,6 +15,10 @@
     overflow-x: visible;
     overflow-y: scroll;
     gap: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 10px;
 }
 
 /* Search box */

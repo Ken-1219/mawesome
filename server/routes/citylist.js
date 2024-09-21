@@ -4,7 +4,7 @@ const router = express.Router();
 require("dotenv").config();
 
 const url =
-  "https://wft-geo-db.p.rapidapi.com/v1/geo/adminDivisions?minPopulation=100000&namePrefix=mum";
+  "https://wft-geo-db.p.rapidapi.com/v1/geo/adminDivisions?minPopulation=100000&namePrefix=";
 
 const options = {
   method: "GET",
@@ -17,7 +17,7 @@ const options = {
 const getCityList = async (searchTerm) => {
   try {
     const response = await fetch(
-      `https://wft-geo-db.p.rapidapi.com/v1/geo/adminDivisions?minPopulation=100000&namePrefix=${searchTerm}`,
+      `${url}${searchTerm}`,
       options
     );
     if (!response.ok) {
