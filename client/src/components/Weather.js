@@ -12,7 +12,9 @@ const Weather = ({ weather, dashboardRef, handleScroll, setWeather, unit }) => {
       <div className={styles.mainContainer}>
         <div className={styles.landingContainer}>
           <div className={styles.title}>
-            <span>mawesome</span>
+            <span>
+              <img src="/icon.png" alt="mawesome logo" height="40px" />
+            </span>
             <button
               className={styles.searchIcon}
               onClick={() => {
