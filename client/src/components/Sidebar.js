@@ -3,19 +3,20 @@ import { CityContext } from "../context/cityContext";
 import styles from "../styles/Sidebar.module.css";
 import PinnedCityWidget from "./PinWidget";
 import CloseIcon from "@mui/icons-material/Close";
-// import LogoutIcon from '@mui/icons-material/Logout';
+import ToggleButton from "./ToggleButton";
+import { TemperatureUnitContext } from "../context/temperatureUnitContext";
 
 export default function Sidebar(props) {
   //state for search city
   const [searchCity, setSearchCity] = useState(null);
   const [notFound, setNotFound] = useState(false);
-  const { currentCity, pinnedCities, updateCurrentCity, pinCity } =
-    useContext(CityContext);
+  const { currentCity, pinnedCities, updateCurrentCity, pinCity } = useContext(CityContext);
+  const { unit } = useContext(TemperatureUnitContext);
 
   //get weather data of search city
   useEffect(() => {
     if (searchCity) {
-      fetch(`${process.env.REACT_APP_API_URL}/weather/${searchCity}`)
+      fetch(`${process.env.REACT_APP_API_URL}/weather/${searchCity}?units=${unit}`)
         .then((res) => res.json())
         .then((data) => {
           updateCurrentCity(data.name);
@@ -27,7 +28,7 @@ export default function Sidebar(props) {
           return;
         });
     }
-  }, [searchCity]);
+  }, [searchCity, unit]);
 
   return (
     <div className={styles.sidebar}>
@@ -70,6 +71,7 @@ export default function Sidebar(props) {
           );
         })}
       </div>
+      <ToggleButton />
     </div>
   );
 }

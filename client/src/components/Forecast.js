@@ -1,7 +1,8 @@
 import React from "react";
 import styles from "../styles/Dashboard.module.css";
 
-const Forecast = ({ weatherData }) => {
+const Forecast = ({ weatherData, unit }) => {
+  console.log(weatherData);
   const getForecastWidgets = () => {
     const dailyForecastIndices = [0, 8, 16, 24, 32];
 
@@ -12,19 +13,29 @@ const Forecast = ({ weatherData }) => {
         </div>
         <div className={styles.forecastWidgetData}>
           <div className={styles.forecastWidgetCell}>
-            Cast: &nbsp;{" "}
+            Cast: &nbsp;
             <span>
               {weatherData && weatherData.list[index].weather[0].main}
             </span>
           </div>
           <div className={styles.forecastWidgetCell}>
-            Temp: &nbsp;
-            <span>{weatherData && weatherData.list[index].main.temp}</span>
+            Min Temp:&nbsp;
+            <span>
+              {weatherData && weatherData.list[index].main.temp_min} °
+              {unit === "metric" ? "C" : "F"}
+            </span>
           </div>
           <div className={styles.forecastWidgetCell}>
-            Humidity: &nbsp;
-            <span>{weatherData && weatherData.list[index].main.humidity}</span>
+            Max Temp:&nbsp;
+            <span>
+              {weatherData && weatherData.list[index].main.temp_max} °
+              {unit === "metric" ? "C" : "F"}
+            </span>
           </div>
+          {/* <div className={styles.forecastWidgetCell}>
+            Humidity: &nbsp;
+            <span>{weatherData && weatherData.list[index].main.humidity}%</span>
+          </div> */}
           <div className={styles.forecastWidgetCell}>
             <img
               src={`http://openweathermap.org/img/w/${weatherData.list[index].weather[0].icon}.png`}

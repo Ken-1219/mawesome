@@ -2,11 +2,12 @@ import { useState, useEffect, useContext, useRef } from "react";
 import { CityContext } from "../context/cityContext";
 import NoWeather from "../components/NoWeather";
 import Weather from "../components/Weather";
+import { TemperatureUnitContext } from "../context/temperatureUnitContext";
 
 export default function Home() {
   const [weather, setWeather] = useState(null);
   const { currentCity } = useContext(CityContext);
-
+  const { unit } = useContext(TemperatureUnitContext);
   const dashboardRef = useRef(null);
 
   const handleScroll = () => {
@@ -17,14 +18,14 @@ export default function Home() {
     if (currentCity) {
       const fetchData = async () => {
         const res = await fetch(
-          `${process.env.REACT_APP_API_URL}/weather/${currentCity}`
+          `${process.env.REACT_APP_API_URL}/weather/${currentCity}?units=${unit}`
         );
         const data = await res.json();
         setWeather(data);
       };
       fetchData();
     }
-  }, [currentCity]);
+  }, [currentCity, unit]);
 
   useEffect(() => {
     if (weather) {
@@ -62,6 +63,7 @@ export default function Home() {
         dashboardRef={dashboardRef}
         handleScroll={handleScroll}
         setWeather={setWeather}
+        unit={unit}
       />
     );
   else return <NoWeather />;

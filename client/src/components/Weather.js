@@ -6,7 +6,7 @@ import Footer from "./Footer";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 
-const Weather = ({ weather, dashboardRef, handleScroll, setWeather }) => {
+const Weather = ({ weather, dashboardRef, handleScroll, setWeather, unit }) => {
   return (
     <div style={{ height: "100%" }}>
       <div className={styles.mainContainer}>
@@ -26,7 +26,10 @@ const Weather = ({ weather, dashboardRef, handleScroll, setWeather }) => {
           </div>
           <div className={styles.weatherWidgetContainer}>
             <div className={styles.weatherWidgetLeft}>
-              <h2>{weather && weather.main.temp | 0}&#176;C</h2>
+              <h2>
+                {weather && weather.main.temp | 0}&#176;
+                {unit === "metric" ? "C" : "F"}
+              </h2>
             </div>
             <div className={styles.weatherWidgetRight}>
               <div>

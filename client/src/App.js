@@ -1,10 +1,13 @@
-import CityContextProvider from './context/cityContext'
-import Home from './pages/Home'
+import CityContextProvider from "./context/cityContext";
+import TemperatureUnitProvider from "./context/temperatureUnitContext";
+import Home from "./pages/Home";
 
 export default function App({ pageProps }) {
   return (
     <CityContextProvider>
-      <Home {...pageProps} />
+      <TemperatureUnitProvider>
+        <Home {...pageProps} />
+      </TemperatureUnitProvider>
     </CityContextProvider>
-  )
+  );
 }

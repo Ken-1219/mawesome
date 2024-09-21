@@ -11,11 +11,13 @@ import {
 } from "chart.js";
 import Forecast from "./Forecast";
 import InfoWidgets from "./InfoWidget";
+import { TemperatureUnitContext } from "../context/temperatureUnitContext";
 
 ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale);
 
 export default function Dashboard(props) {
   const { currentCity } = useContext(CityContext);
+  const { unit } = useContext(TemperatureUnitContext);
   const [weatherData, setWeatherData] = useState(null);
 
   const dayData = {
@@ -78,12 +80,12 @@ export default function Dashboard(props) {
   };
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/forecast/${currentCity}`)
+    fetch(`${process.env.REACT_APP_API_URL}/forecast/${currentCity}?units=${unit}`)
       .then((res) => res.json())
       .then((data) => {
         setWeatherData(data);
       });
-  }, [currentCity]);
+  }, [currentCity, unit]);
 
   if (weatherData)
     return (
@@ -92,15 +94,15 @@ export default function Dashboard(props) {
           <div className={styles.tabsRibbon}>
             <span>Today</span>
           </div>
-          <InfoWidgets weatherData={weatherData} />
+          <InfoWidgets weatherData={weatherData} unit={unit} />
           <div className={styles.tabsRibbon}>
-            <span>Temperature &#40;°C&#41;</span>
+            <span>Temperature &#40;°{unit === "metric" ? "C" : "F"}&#41;</span>
           </div>
           <div className={styles.widgetRow} id="bar">
             {/* Add line chart with echarts to display first 8 entries of forecast data = 24 hours */}
             <Line data={dayData} options={options}></Line>
           </div>
-          <Forecast weatherData={weatherData} />
+          <Forecast unit={unit} weatherData={weatherData} />
         </div>
       </div>
     );

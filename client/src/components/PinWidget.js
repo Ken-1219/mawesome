@@ -2,10 +2,13 @@ import { useState, useEffect, useContext } from "react";
 import { CityContext } from "../context/cityContext";
 import styles from "../styles/PinWidget.module.css";
 import ClearIcon from "@mui/icons-material/Clear";
+import { TemperatureUnitContext } from "../context/temperatureUnitContext";
 
 export default function PinnedCityWidget({ city }) {
   const [weatherData, setWeatherData] = useState(null);
   const { updateCurrentCity, unpinCity } = useContext(CityContext);
+  const { unit } = useContext(TemperatureUnitContext);
+
   const handleWidgetClick = (city) => {
     updateCurrentCity(city);
     //if width is for mobile, close sidebar
@@ -13,13 +16,16 @@ export default function PinnedCityWidget({ city }) {
       document.getElementById("sidebar").style.transform = "translateX(100%)";
     }
   };
+
+
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/weather/${city}`)
+    fetch(`${process.env.REACT_APP_API_URL}/weather/${city}?units=${unit}`)
       .then((res) => res.json())
       .then((data) => {
         setWeatherData(data);
       });
-  }, []);
+  }, [unit, city]);
+
   return (
     <>
       {weatherData && (
@@ -42,7 +48,7 @@ export default function PinnedCityWidget({ city }) {
           >
             <div className={styles.pinWidgetLeft}>
               <div className={styles.pinWidgetTemp}>
-                {Math.round(weatherData.main.temp)}°C
+                {Math.round(weatherData.main.temp)}°{unit === "metric" ? "C" : "F"}
               </div>
               <div className={styles.pinWidgetWeatherDesc}>
                 {weatherData.weather[0].description}
@@ -53,7 +59,7 @@ export default function PinnedCityWidget({ city }) {
                 Humidity: {weatherData.main.humidity}%
               </div>
               <div className={styles.pinWidgetWind}>
-                Wind: {weatherData.wind.speed}m/s
+                Wind: {weatherData.wind.speed}{unit === "metric" ? "m/s" : "mph"}
               </div>
             </div>
           </div>

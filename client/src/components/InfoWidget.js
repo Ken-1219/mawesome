@@ -10,7 +10,7 @@ const Widget = ({ title, value }) => {
   );
 };
 
-export default function InfoWidgets({ weatherData }) {
+export default function InfoWidgets({ weatherData, unit }) {
   const data = [
     {
       title: "Weather",
@@ -22,7 +22,7 @@ export default function InfoWidgets({ weatherData }) {
     },
     {
       title: "Wind Speed",
-      value: weatherData ? `${weatherData.list[0].wind.speed} m/s` : "N/A",
+      value: weatherData ? `${weatherData.list[0].wind.speed} ${unit === "metric" ? "m/s" : "mph"}` : "N/A",
     },
     {
       title: "Visibility",
