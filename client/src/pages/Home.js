@@ -6,7 +6,7 @@ import { TemperatureUnitContext } from "../context/temperatureUnitContext";
 
 export default function Home() {
   const [weather, setWeather] = useState(null);
-  const { currentCity } = useContext(CityContext);
+  const { currentCity, updateCurrentCity } = useContext(CityContext);
   const { unit } = useContext(TemperatureUnitContext);
   const dashboardRef = useRef(null);
 
@@ -22,6 +22,8 @@ export default function Home() {
         );
         const data = await res.json();
         setWeather(data);
+        updateCurrentCity(data.name);
+        localStorage.setItem("cachedWeather", JSON.stringify(data));
       };
       fetchData();
     }
@@ -55,6 +57,14 @@ export default function Home() {
       }
     }
   }, [weather]);
+
+  useEffect(() => {
+    const cachedWeather = localStorage.getItem("cachedWeather");
+    if (cachedWeather) {
+      const weatherData = JSON.parse(cachedWeather);
+      setWeather(weatherData);
+    }
+  }, []);
 
   if (weather)
     return (

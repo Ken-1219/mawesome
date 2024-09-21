@@ -20,8 +20,15 @@ export default function Dashboard(props) {
   const { unit } = useContext(TemperatureUnitContext);
   const [weatherData, setWeatherData] = useState(null);
 
+  useEffect(() => {
+    const cachedData = localStorage.getItem(`forecast_${currentCity}_${unit}`);
+    if (cachedData) {
+      setWeatherData(JSON.parse(cachedData));
+    }
+  }, [currentCity, unit]);
+
   const dayData = {
-    //labels are first 8 time in IST hrs format taken from the 5 day forecast data
+    // Labels are the first 8 times in IST hrs format taken from the 5-day forecast data
     labels:
       weatherData &&
       weatherData.list
@@ -80,11 +87,24 @@ export default function Dashboard(props) {
   };
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/forecast/${currentCity}?units=${unit}`)
-      .then((res) => res.json())
-      .then((data) => {
+    const fetchWeatherData = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.REACT_APP_API_URL}/forecast/${currentCity}?units=${unit}`
+        );
+        if (!res.ok) throw new Error("Network response was not ok");
+        const data = await res.json();
         setWeatherData(data);
-      });
+        localStorage.setItem(
+          `forecast_${currentCity}_${unit}`,
+          JSON.stringify(data)
+        );
+      } catch (error) {
+        console.error("Failed to fetch weather data:", error);
+      }
+    };
+
+    fetchWeatherData();
   }, [currentCity, unit]);
 
   if (weatherData)
@@ -99,7 +119,6 @@ export default function Dashboard(props) {
             <span>Temperature &#40;°{unit === "metric" ? "C" : "F"}&#41;</span>
           </div>
           <div className={styles.widgetRow} id="bar">
-            {/* Add line chart with echarts to display first 8 entries of forecast data = 24 hours */}
             <Line data={dayData} options={options}></Line>
           </div>
           <Forecast unit={unit} weatherData={weatherData} />

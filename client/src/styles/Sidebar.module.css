@@ -97,6 +97,44 @@
     font-size: 1rem;
 }
 
+.suggestionsContainer {
+    margin: 0 20px;
+    width: 305px;
+    padding: 0;
+    background-color: var(--bg-glass-lighter);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    position: relative;
+}
+
+.suggestionsList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.suggestionItem {
+    padding: 10px;
+    /* border-bottom: 1px solid var(--color-secondary); */
+    color: var(--color-primary);
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.suggestionItem:last-child {
+    border-bottom: none;
+}
+
+.suggestionItem:hover {
+    background-color: var(--bg-glass);
+    color: var(--color-secondary);
+}
+
 /* Pin Container */
 
 .pinContainer {
@@ -158,6 +196,10 @@
 
     .sidebarSearchForm input {
         width: 75%;
+    }
+
+    .suggestionsContainer{
+        width: auto;
     }
 
     .closeIcon {

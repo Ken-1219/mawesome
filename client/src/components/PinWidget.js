@@ -11,20 +11,35 @@ export default function PinnedCityWidget({ city }) {
 
   const handleWidgetClick = (city) => {
     updateCurrentCity(city);
-    //if width is for mobile, close sidebar
     if (window.innerWidth < 768) {
       document.getElementById("sidebar").style.transform = "translateX(100%)";
     }
   };
 
+  useEffect(() => {
+    const cachedData = localStorage.getItem(`weather_${city}_${unit}`);
+    if (cachedData) {
+      setWeatherData(JSON.parse(cachedData));
+    }
+  }, [city, unit]);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/weather/${city}?units=${unit}`)
-      .then((res) => res.json())
-      .then((data) => {
+    const fetchWeatherData = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.REACT_APP_API_URL}/weather/${city}?units=${unit}`
+        );
+        if (!res.ok) throw new Error("Failed to fetch weather data");
+        const data = await res.json();
         setWeatherData(data);
-      });
-  }, [unit, city]);
+        localStorage.setItem(`weather_${city}_${unit}`, JSON.stringify(data));
+      } catch (error) {
+        console.error("Error fetching weather data:", error);
+      }
+    };
+
+    fetchWeatherData();
+  }, [city, unit]);
 
   return (
     <>
@@ -48,7 +63,8 @@ export default function PinnedCityWidget({ city }) {
           >
             <div className={styles.pinWidgetLeft}>
               <div className={styles.pinWidgetTemp}>
-                {Math.round(weatherData.main.temp)}°{unit === "metric" ? "C" : "F"}
+                {Math.round(weatherData.main.temp)}°
+                {unit === "metric" ? "C" : "F"}
               </div>
               <div className={styles.pinWidgetWeatherDesc}>
                 {weatherData.weather[0].description}
@@ -59,7 +75,8 @@ export default function PinnedCityWidget({ city }) {
                 Humidity: {weatherData.main.humidity}%
               </div>
               <div className={styles.pinWidgetWind}>
-                Wind: {weatherData.wind.speed}{unit === "metric" ? "m/s" : "mph"}
+                Wind: {weatherData.wind.speed}
+                {unit === "metric" ? "m/s" : "mph"}
               </div>
             </div>
           </div>
