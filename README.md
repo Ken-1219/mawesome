@@ -48,7 +48,6 @@ Create a `.env` file in the root of the server directory and add your environmen
 
 ```
 API_KEY=your_weather_api_key_for_openweathermap
-RAPID_API_KEY=your_rapid_api_key_for_geocities
 ```
 
 Run the server:
