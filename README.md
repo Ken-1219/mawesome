@@ -1,6 +1,6 @@
 # mawesome
 
-Next.js and Express.js weather app. Check out [mawesome](https://mawesome-web.vercel.app/)
+React.js and Express.js weather app. Check out [mawesome](https://mawesome-web.vercel.app/)
 
 ## Key Features
 
